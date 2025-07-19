@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Datetime from "./datetimecard";
 
-const Background = () => {
+const Header = () => {
+
   return (
     <>
       <div className="flex flex-col md:flex-row items-center">
@@ -14,8 +15,10 @@ const Background = () => {
           <Datetime />
         </div>
       </div>
+
+      
     </>
   );
 };
 
-export default Background;
+export default Header;

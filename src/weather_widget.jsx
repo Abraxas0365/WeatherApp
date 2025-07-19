@@ -1,41 +1,36 @@
 import React, { useEffect, useState } from "react";
-import config from "./assets/config.json";
+import useWeather from "./weatherfetcher";
 import WeatherCommentary from "./WeatherCommentary";
 
-const API_KEY = config.ApiKey;
-const CITY = "Marilao";
+const Weatherwidget = () => {
+  const weather = useWeather();
 
-const Weather = () => {
-  const [weather, setWeather] = useState(null);
-
-  useEffect(() => {
-    const fetchWeather = () => {
-      console.log("Fetching weather data..."); // refresh checker
-      fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${CITY}&appid=${API_KEY}&units=metric`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(
-            "Weather updated at",
-            new Date().toLocaleTimeString(),
-            data
-          );
-          setWeather(data);
-        })
-        .catch((err) => console.error("Weather API error:", err));
-    };
-
-    fetchWeather(); // initial fetch
-
-    // const interval = setInterval(fetchWeather, 10 * 1000); // every 3 seconds
-
-    // return () => clearInterval(interval); // cleanup on unmount
-  }, []);
+  function getWindDirection(deg) {
+    const directions = [
+      "N",
+      "NNE",
+      "NE",
+      "ENE",
+      "E",
+      "ESE",
+      "SE",
+      "SSE",
+      "S",
+      "SSW",
+      "SW",
+      "WSW",
+      "W",
+      "WNW",
+      "NW",
+      "NNW",
+    ];
+    const index = Math.round(deg / 22.5) % 16;
+    return directions[index];
+  }
 
   return (
     <>
-      <section className="text-white text-[clamp(1rem,1.7vw,3rem)] mt-20 w-[90vw] justify-self-center z-10 bg-[#2e2e2e]/30 p-4 rounded-lg backdrop-blur-sm">
+      <section className="text-white text-[clamp(1rem,1.7vw,3rem)] w-[90vw] justify-self-center z-10 bg-[#2e2e2e]/30 p-4 rounded-lg backdrop-blur-sm">
         {weather?.main ? (
           // top section with weather info
           <div className="flex flex-col md:flex-row md:items-start gap-6 w-full">
@@ -76,15 +71,12 @@ const Weather = () => {
                     <strong>Cloudiness</strong>: {weather.clouds.all}%
                   </h1>
                   <h1>
-                    <strong>Wind Speed</strong>: {weather.wind.speed} m/s
+                    <strong>Wind Speed</strong>: {" "} {weather.wind.speed} m/s
                   </h1>
-                    <h1>
-                        <strong>Min Temp</strong>: {weather.main.temp_min}°C
-                    </h1>
-                    <h1>
-                        <strong>Max Temp</strong>: {weather.main.temp_max}°C
-                    </h1>
-
+                  <h1>
+                    <strong>Wind Direction</strong>:{" "}
+                    {getWindDirection(weather.wind.deg)} ({weather.wind.deg}°)
+                  </h1>
                 </div>
               </div>
             </div>
@@ -94,9 +86,7 @@ const Weather = () => {
               <WeatherCommentary weather={weather} />
             </div>
           </div>
-
         ) : (
-
           <h1 className="font-bold animate-pulse drop-shadow-2xl">
             Loading...
           </h1>
@@ -106,4 +96,4 @@ const Weather = () => {
   );
 };
 
-export default Weather;
+export default Weatherwidget;
