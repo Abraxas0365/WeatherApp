@@ -16,9 +16,9 @@ const useWeather = () => {
         .then((res) => res.json())
         .then((data) => {
           console.log(
-            "Weather updated at",
+            "Fetched weather for city:", CITY,
             new Date().toLocaleTimeString(),
-            data
+            data, "for city:", CITY
           );
           setWeather(data);
         })

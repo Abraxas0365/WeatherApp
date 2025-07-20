@@ -6,7 +6,7 @@ const WeatherCommentary = ({ weather }) => {
 
   return (
     <div className="">
-      <h1 className="text-lg font-bold">Weather Commentary:</h1>
+      <h1 className="font-bold">Weather Commentary:</h1>
 
       <h1 className="mt-4">Temp: </h1>
       <div className="pl-7">

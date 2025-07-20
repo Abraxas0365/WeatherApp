@@ -45,7 +45,7 @@ const Body = () => {
       {/* Card Switcher */}
       <div className="mt-6 transition-all duration-500 ease-in-out">
         {activeTab === "current" && (
-          <div className="animate-fade-in">
+          <div className="animate-fade-in w-auto">
             <Weatherwidget />
           </div>
         )}
