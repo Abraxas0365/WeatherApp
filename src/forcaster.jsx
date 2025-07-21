@@ -20,7 +20,7 @@ const useForecast = () => {
 
         const today = new Date().toISOString().split("T")[0];
         const tomorrowDate = new Date();
-        tomorrowDate.setDate(tomorrowDate.getDate() + 2);
+        tomorrowDate.setDate(tomorrowDate.getDate() + 1);
         const tomorrowStr = tomorrowDate.toISOString().split("T")[0];
 
         const tomorrow = [];
@@ -41,7 +41,7 @@ const useForecast = () => {
           }
         });
 
-        const laterDays = Object.values(laterDaysObj).slice(1, 4); // 4 days after tomorrow
+        const laterDays = Object.values(laterDaysObj).slice(0, 4); // 4 days after tomorrow
         setForecast({ tomorrow, laterDays });
 
         console.log(
